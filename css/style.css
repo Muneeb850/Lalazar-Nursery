@@ -140,8 +140,7 @@ section{position:relative}
 .card-b h3{font-family:var(--serif);font-weight:400;font-size:1.3rem;letter-spacing:-.02em;line-height:1.1}
 .card-b p{font-size:.82rem;opacity:.6;margin-top:4px}
 .price{font-weight:500;white-space:nowrap}
-.add{position:absolute;right:14px;bottom:calc(100% - 4/5*100% + 0px);}
-.card .add{position:absolute;top:14px;right:14px;z-index:3;width:46px;height:46px;border-radius:50%;background:var(--lime);color:var(--ink);font-size:1.4rem;line-height:1;display:grid;place-items:center;transform:scale(.6);opacity:0;transition:transform .5s var(--ease),opacity .3s}
+.card .add{position:absolute;bottom:12px;right:12px;z-index:3;width:46px;height:46px;border-radius:50%;background:var(--lime);color:var(--ink);font-size:1.4rem;line-height:1;display:grid;place-items:center;transform:scale(.6);opacity:0;transition:transform .5s var(--ease),opacity .3s}
 .card:hover .add,.card .add:focus-visible{transform:scale(1);opacity:1}
 @media(hover:none){.card .add{opacity:1;transform:scale(1)}}
 .light .card-img{background:var(--sand)}
@@ -425,3 +424,19 @@ html{-webkit-tap-highlight-color:transparent}
 /* never allow sideways page scroll */
 html,body{overflow-x:clip;max-width:100%}
 .shop-bar>*{min-width:0;max-width:100%}
+
+/* sticky shop bar sits below the header when visible, flush to top when header hides */
+.shop-bar{top:76px;transition:top .6s var(--ease)}
+body.hdr-off .shop-bar{top:0}
+
+@media(max-width:800px){.card .add{width:42px;height:42px;bottom:10px;right:10px;font-size:1.3rem}}
+
+/* services: inline photos on touch / small screens */
+.srow-img{display:none}
+@media(max-width:800px),(hover:none){
+  .srow{grid-template-columns:40px 1fr}
+  .srow-img{display:block;grid-column:2;width:100%;aspect-ratio:16/10;border-radius:16px;overflow:hidden;margin:6px 0 4px;background:var(--moss)}
+  .srow-img img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 1.4s var(--ease)}
+  .srow.on .srow-img img{transform:scale(1)}
+  .srow p,.srow .arrow{grid-column:2}
+}

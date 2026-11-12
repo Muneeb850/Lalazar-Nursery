@@ -3,8 +3,8 @@
   const { $, $$, reduce } = LZ;
   const card = p => `<article class="card tilt" data-cursor="View" data-open="${p.id}">
     <span class="badge">${p.cat}</span>
-    <div class="card-img"><img src="${LZ.U(p.img, 700)}" srcset="${LZ.SRCSET(p.img)}" sizes="(max-width:800px) 68vw, 29vw" alt="${p.name}" width="700" height="875" loading="eager" decoding="async"></div>
-    <button class="add" data-add="${p.id}" aria-label="Add ${p.name} to cart">+</button>
+    <div class="card-img"><img src="${LZ.U(p.img, 700)}" srcset="${LZ.SRCSET(p.img)}" sizes="(max-width:800px) 68vw, 29vw" alt="${p.name}" width="700" height="875" loading="eager" decoding="async">
+      <button class="add" data-add="${p.id}" aria-label="Add ${p.name} to cart">+</button></div>
     <div class="card-b"><div><h3>${p.name}</h3><p>${p.latin}</p></div><div class="price">${LZ.fmt(p.price)}</div></div></article>`;
   const featured = ['monstera', 'fiddle', 'calathea', 'bonsai', 'echeveria', 'peace', 'topiary'].map(LZ.byId);
   $('#feat-track').innerHTML = featured.map(card).join('') +

@@ -11,8 +11,8 @@
 
   const card = p => `<article class="card tilt" data-cursor="View" data-open="${p.id}">
     <span class="badge">${p.cat}${p.pet ? ' · Pet-safe' : ''}</span>
-    <div class="card-img"><img src="${LZ.U(p.img, 600)}" srcset="${LZ.SRCSET(p.img)}" sizes="(max-width:760px) 50vw, (max-width:1100px) 33vw, 25vw" alt="${p.name}" width="600" height="750" loading="lazy" decoding="async"></div>
-    <button class="add" data-add="${p.id}" aria-label="Add ${p.name} to cart">+</button>
+    <div class="card-img"><img src="${LZ.U(p.img, 600)}" srcset="${LZ.SRCSET(p.img)}" sizes="(max-width:760px) 50vw, (max-width:1100px) 33vw, 25vw" alt="${p.name}" width="600" height="750" loading="lazy" decoding="async">
+      <button class="add" data-add="${p.id}" aria-label="Add ${p.name} to cart">+</button></div>
     <div class="card-b"><div><h3>${p.name}</h3><p>${p.latin}</p></div><div class="price">${LZ.fmt(p.price)}</div></div></article>`;
 
   const grid = $('#grid');

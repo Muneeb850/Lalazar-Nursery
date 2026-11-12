@@ -105,7 +105,7 @@
   const hdr = $('.hdr'); let lastY = 0;
   addEventListener('scroll', () => {
     const y = scrollY;
-    if (!menuOpen) hdr.classList.toggle('hide', y > lastY && y > 300);
+    if (!menuOpen) { const h = y > lastY && y > 300; hdr.classList.toggle('hide', h); document.body.classList.toggle('hdr-off', h); }
     lastY = y;
   }, { passive: true });
 
@@ -189,8 +189,45 @@
     }).join('') : '<p class="dempty">Your cart is empty.<br><a href="plants.html" style="color:var(--lime);font-size:1rem">Browse plants →</a></p>';
     $('.checkout').disabled = !ids.length;
   };
-  LZ.addToCart = (id, n = 1) => { cart[id] = (cart[id] || 0) + n; saveCart(); say(`${LZ.byId(id).name} added to cart`); bump(); };
-  const bump = () => { if (hasGSAP) $$('.cart-btn b').forEach(b => gsap.fromTo(b, { scale: 1.6 }, { scale: 1, duration: .6, ease: 'elastic.out(1,.5)' })); };
+  LZ.addToCart = (id, n = 1, src) => {
+    cart[id] = (cart[id] || 0) + n; saveCart(); say(`${LZ.byId(id).name} added to cart`);
+    if (!flyToCart(id, src)) bump();
+  };
+  const bump = () => {
+    if (!hasGSAP) return;
+    $$('.cart-btn b').forEach(b => gsap.fromTo(b, { scale: 1.7 }, { scale: 1, duration: .7, ease: 'elastic.out(1,.45)' }));
+    const cb = $('.cart-btn'); if (cb) gsap.fromTo(cb, { scale: 1.18 }, { scale: 1, duration: .6, ease: 'elastic.out(1,.5)' });
+    // expanding ring so the cart is easy to spot
+    const r = $('.cart-btn b').getBoundingClientRect(), ring = document.createElement('i');
+    ring.style.cssText = `position:fixed;z-index:262;left:${r.left + r.width / 2}px;top:${r.top + r.height / 2}px;width:${r.width}px;height:${r.width}px;margin:${-r.width / 2}px 0 0 ${-r.width / 2}px;border-radius:50%;border:2px solid #c9f26b;pointer-events:none`;
+    document.body.append(ring);
+    gsap.to(ring, { scale: 3.2, opacity: 0, duration: .8, ease: 'power2.out', onComplete: () => ring.remove() });
+  };
+  /* fly a copy of the plant photo into the cart button */
+  const flyToCart = (id, src) => {
+    if (!hasGSAP || reduce) return false;
+    const target = $('.cart-btn'); if (!target) return false;
+    if (hdr.classList.contains('hide')) {               // make sure the cart is on screen before measuring it
+      hdr.style.transition = 'none'; hdr.classList.remove('hide'); document.body.classList.remove('hdr-off'); void hdr.offsetHeight;
+      requestAnimationFrame(() => { hdr.style.transition = ''; });
+    }
+    const from = (src && (src.closest('.card')?.querySelector('.card-img') || src.closest('.modal-box')?.querySelector('.modal-img') || src)) || target;
+    const a = from.getBoundingClientRect(), t = target.getBoundingClientRect();
+    const size = Math.min(150, Math.max(70, a.width * .5));
+    const fly = document.createElement('div');
+    fly.style.cssText = `position:fixed;z-index:261;left:0;top:0;width:${size}px;height:${size}px;border-radius:18px;overflow:hidden;pointer-events:none;box-shadow:0 18px 50px rgba(0,0,0,.45);background:#1d4630 url("${LZ.U(LZ.byId(id).img, 240)}") center/cover`;
+    document.body.append(fly);
+    const sx = a.left + a.width / 2 - size / 2, sy = a.top + a.height / 2 - size / 2;
+    const ex = t.left + t.width / 2 - size / 2, ey = t.top + t.height / 2 - size / 2;
+    gsap.set(fly, { x: sx, y: sy, scale: .6, opacity: 0 });
+    const tl = gsap.timeline({ onComplete: () => { fly.remove(); bump(); } });
+    tl.to(fly, { scale: 1, opacity: 1, duration: .25, ease: 'back.out(2)' })
+      .to(fly, { x: ex, duration: .95, ease: 'power1.in' }, '>')
+      .to(fly, { y: ey, duration: .95, ease: 'power3.inOut' }, '<')   // different eases on x/y bend the path into an arc
+      .to(fly, { scale: .12, borderRadius: 40, duration: .95, ease: 'power2.in' }, '<')
+      .to(fly, { opacity: 0, duration: .12 }, '-=.1');
+    return true;
+  };
   const openCart = on => {
     drawerOpen = on; lock(on);
     if (hasGSAP) {
@@ -210,7 +247,7 @@
   renderCart();
   document.addEventListener('click', e => {
     const b = e.target.closest('[data-add]'); if (!b) return;
-    e.stopPropagation(); LZ.addToCart(b.dataset.add);
+    e.stopPropagation(); LZ.addToCart(b.dataset.add, 1, b);
   }, true);
 
   /* ---------- modals ---------- */

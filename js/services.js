@@ -1,6 +1,13 @@
 /* Services: cursor-following image preview on hover */
 (() => {
   const { $, $$, fine, reduce } = LZ;
+  if (!fine || innerWidth <= 800) { // touch / small screens: show each service photo inline
+    $$('.srow').forEach(r => {
+      const d = document.createElement('div'); d.className = 'srow-img'; d.setAttribute('data-clip', '');
+      d.innerHTML = `<img src="${LZ.U(r.dataset.peek, 800)}" alt="" loading="lazy" decoding="async" width="800" height="500">`;
+      r.insertBefore(d, $('.arrow', r));
+    });
+  }
   if (!fine && !reduce && 'IntersectionObserver' in window) { // touch: highlight the row in the middle of the screen
     const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('on', e.isIntersecting)), { rootMargin: '-40% 0px -40% 0px' });
     $$('.srow').forEach(r => io.observe(r));
