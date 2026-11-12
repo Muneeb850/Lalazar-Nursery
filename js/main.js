@@ -169,7 +169,9 @@
   const cartCount = () => Object.values(cart).reduce((a, b) => a + b, 0);
   const cartTotal = () => Object.entries(cart).reduce((s, [id, q]) => s + (LZ.byId(id)?.price || 0) * q, 0);
   let toastT;
+  let drawerOpen = false;
   const say = msg => {
+    if (drawerOpen) return;
     toast.textContent = msg;
     toast.style.transform = 'translate(-50%,0)';
     clearTimeout(toastT); toastT = setTimeout(() => { toast.style.transform = 'translate(-50%,200%)'; }, 2200);
@@ -190,7 +192,7 @@
   LZ.addToCart = (id, n = 1) => { cart[id] = (cart[id] || 0) + n; saveCart(); say(`${LZ.byId(id).name} added to cart`); bump(); };
   const bump = () => { if (hasGSAP) $$('.cart-btn b').forEach(b => gsap.fromTo(b, { scale: 1.6 }, { scale: 1, duration: .6, ease: 'elastic.out(1,.5)' })); };
   const openCart = on => {
-    lock(on);
+    drawerOpen = on; lock(on);
     if (hasGSAP) {
       if (on) { gsap.set([drawer, dbg], { visibility: 'visible' }); gsap.to(dbg, { opacity: 1, duration: .4 }); gsap.to(drawer, { xPercent: 0, duration: .7, ease: 'expo.out' }); }
       else { gsap.to(dbg, { opacity: 0, duration: .4 }); gsap.to(drawer, { xPercent: 100, duration: .6, ease: 'expo.inOut', onComplete: () => gsap.set([drawer, dbg], { visibility: 'hidden' }) }); }
@@ -339,7 +341,7 @@
     });
     // card image parallax inside cards
     $$('.card-img img:not([data-done])', root).forEach(im => {
-      im.dataset.done = 1; if (reduce || !fine) return;
+      im.dataset.done = 1; if (reduce) return;
       gsap.fromTo(im, { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: im.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
     });
     bindFX(root);

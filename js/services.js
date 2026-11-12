@@ -1,6 +1,10 @@
 /* Services: cursor-following image preview on hover */
 (() => {
   const { $, $$, fine, reduce } = LZ;
+  if (!fine && !reduce && 'IntersectionObserver' in window) { // touch: highlight the row in the middle of the screen
+    const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('on', e.isIntersecting)), { rootMargin: '-40% 0px -40% 0px' });
+    $$('.srow').forEach(r => io.observe(r));
+  }
   if (!fine || reduce || typeof gsap === 'undefined') return;
   const peek = $('.peek'), img = $('img', peek);
   const x = gsap.quickTo(peek, 'x', { duration: .6, ease: 'power3' }), y = gsap.quickTo(peek, 'y', { duration: .6, ease: 'power3' });
