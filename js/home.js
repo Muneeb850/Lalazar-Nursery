@@ -6,7 +6,7 @@
     <div class="card-img"><img src="${LZ.U(p.img, 700)}" srcset="${LZ.SRCSET(p.img)}" sizes="(max-width:800px) 68vw, 29vw" alt="${p.name}" width="700" height="875" loading="eager" decoding="async">
       <button class="add" data-add="${p.id}" aria-label="Add ${p.name} to cart">+</button></div>
     <div class="card-b"><div><h3>${p.name}</h3><p>${p.latin}</p></div><div class="price">${LZ.fmt(p.price)}</div></div></article>`;
-  const featured = ['monstera', 'fiddle', 'calathea', 'bonsai', 'echeveria', 'peace', 'topiary'].map(LZ.byId);
+  const featured = ['chrysanthemum', 'dahlia', 'gerbera', 'bougainvillea', 'adenium', 'fittonia', 'jade'].map(LZ.byId);
   $('#feat-track').innerHTML = featured.map(card).join('') +
     `<a class="card" href="plants.html" data-cursor="Shop" style="display:grid;place-items:center;aspect-ratio:4/5;border-radius:20px;background:var(--lime);color:var(--ink);align-self:start"><span class="h3" style="text-align:center">See the<br><em style="color:var(--moss)">full collection</em> →</span></a>`;
 

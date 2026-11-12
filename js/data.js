@@ -36,28 +36,42 @@ LZ.PHOTO = {
   leaf: LZ.IMG.leaf, sunflower: LZ.IMG.sunflower
 };
 
-LZ.U = (key, w) => `https://images.unsplash.com/photo-${LZ.PHOTO[key]}?auto=format&fit=crop&q=75&w=${w || 900}`;
-LZ.SRCSET = key => [480, 800, 1200, 1800, 2400].map(w => `${LZ.U(key, w)} ${w}w`).join(', ');
+/* Product photos from Pexels (free licence). key -> Pexels photo id */
+LZ.PEX = {
+  chrysanthemum: 2795605, dahlia: 28118143, gerbera: 850359, osteospermum: 531774, ranunculus: 31416570,
+  carnation: 4622762, dianthus: 34002795, areca: 15448195, spider: 31757820, fittonia: 17351228,
+  jade: 9130764, bougainvillea: 12010795, adenium: 29862214, hibiscus: 31569219
+};
+
+/* Your own photos: put the file in images/products/ and list it here, e.g.
+   LZ.LOCAL = { chrysanthemum: 'images/products/chrysanthemum.jpg', osteospermum: 'images/products/osteospermum.jpg' }; */
+LZ.LOCAL = {};
+
+LZ.U = (key, w) => LZ.LOCAL[key] ? LZ.LOCAL[key] : LZ.PEX[key]
+  ?`https://images.pexels.com/photos/${LZ.PEX[key]}/pexels-photo-${LZ.PEX[key]}.jpeg?auto=compress&cs=tinysrgb&w=${w || 900}`
+  : `https://images.unsplash.com/photo-${LZ.PHOTO[key]}?auto=format&fit=crop&q=75&w=${w || 900}`;
+LZ.SRCSET = key => LZ.LOCAL[key] ? `${LZ.LOCAL[key]} 1600w` : [480, 800, 1200, 1800, 2400].map(w => `${LZ.U(key, w)} ${w}w`).join(', ');
 
 LZ.fmt = n => 'Rs ' + n.toLocaleString('en-PK');
 
-/* light: low|medium|bright   pet: true = pet-safe   care: easy|moderate|expert */
+/* light: low|medium|bright   pet: true = pet-safe   care: easy|moderate|expert
+   Prices in Rs. Edit name / price / description here and the whole site updates. */
 LZ.PRODUCTS = [
-  { id: 'monstera', name: 'Monstera Deliciosa', latin: 'Swiss cheese plant', cat: 'Indoor', price: 2800, img: 'monstera', light: 'medium', pet: false, care: 'easy', water: 'Weekly', desc: 'Iconic split leaves that grow bolder every season. A living statement for any bright corner.' },
-  { id: 'peace', name: 'Peace Lily', latin: 'Spathiphyllum', cat: 'Flowering', price: 1800, img: 'peace', light: 'low', pet: false, care: 'easy', water: 'When leaves droop', desc: 'Glossy dark foliage and elegant white blooms. Thrives where other plants sulk.' },
-  { id: 'rubber', name: 'Rubber Plant', latin: 'Ficus elastica', cat: 'Indoor', price: 2200, img: 'rubber', light: 'bright', pet: false, care: 'easy', water: 'Every 10 days', desc: 'Thick, polished leaves on a sculptural stem. Tough, tall and effortlessly modern.' },
-  { id: 'fiddle', name: 'Fiddle Leaf Fig', latin: 'Ficus lyrata', cat: 'Indoor', price: 4500, img: 'fiddle', light: 'bright', pet: false, care: 'moderate', water: 'Weekly', desc: 'The designer favourite. Big violin-shaped leaves that reward bright light and a steady routine.' },
-  { id: 'pothos', name: 'Golden Pothos', latin: 'Epipremnum aureum', cat: 'Indoor', price: 900, img: 'pothos', light: 'low', pet: false, care: 'easy', water: 'Every 10 days', desc: 'Trailing, forgiving and fast. Hang it, shelve it, let it cascade.' },
-  { id: 'calathea', name: 'Calathea Orbifolia', latin: 'Goeppertia orbifolia', cat: 'Indoor', price: 2600, img: 'calathea', light: 'medium', pet: true, care: 'moderate', water: 'Keep lightly moist', desc: 'Painted, striped leaves that fold with the day. Pet-safe and quietly dramatic.' },
-  { id: 'haworthia', name: 'Zebra Haworthia', latin: 'Haworthiopsis', cat: 'Succulents', price: 700, img: 'haworthia', light: 'bright', pet: true, care: 'easy', water: 'Every 2 weeks', desc: 'Tiny architectural rosettes in a mint pot. Perfect for desks and sills.' },
-  { id: 'aloe', name: 'Aloe Vera', latin: 'Aloe barbadensis', cat: 'Succulents', price: 800, img: 'aloe', light: 'bright', pet: false, care: 'easy', water: 'Every 2 weeks', desc: 'Sun-loving, soothing and nearly indestructible. A kitchen-window classic.' },
-  { id: 'cactus', name: 'Blue Columnar Cactus', latin: 'Pilosocereus', cat: 'Succulents', price: 650, img: 'cactus', light: 'bright', pet: false, care: 'easy', water: 'Monthly', desc: 'A powder-blue desert column in a terracotta pot. Loves neglect and full sun.' },
-  { id: 'echeveria', name: 'Echeveria Rosette', latin: 'Echeveria elegans', cat: 'Succulents', price: 500, img: 'echeveria', light: 'bright', pet: true, care: 'easy', water: 'Every 2 weeks', desc: 'Sculpted jade-teal rosettes. Pet-safe, collectible, and endlessly photogenic.' },
-  { id: 'bonsai', name: 'Ficus Ginseng Bonsai', latin: 'Ficus microcarpa', cat: 'Outdoor', price: 3800, img: 'bonsai', light: 'bright', pet: true, care: 'moderate', water: 'Every 5 days', desc: 'A twisted trunk and tiny glossy leaves. Living art for a patient hand.' },
-  { id: 'topiary', name: 'Boxwood Topiary', latin: 'Buxus sempervirens', cat: 'Outdoor', price: 3200, img: 'topiary', light: 'bright', pet: true, care: 'moderate', water: 'Twice weekly', desc: 'A sculpted green sphere on a slim stem. Frames entrances with formal calm.' },
-  { id: 'eucalyptus', name: 'Eucalyptus Cutting', latin: 'Eucalyptus cinerea', cat: 'Outdoor', price: 1500, img: 'eucalyptus', light: 'bright', pet: false, care: 'moderate', water: 'Weekly', desc: 'Silver-blue, coin-shaped leaves with a fresh, clean scent. Fast growing outdoors.' },
-  { id: 'sunflower', name: 'Sunflower Seedlings', latin: 'Helianthus annuus', cat: 'Flowering', price: 600, img: 'sunflower', light: 'bright', pet: true, care: 'easy', water: 'Every 3 days', desc: 'A tray of young sunflowers ready to plant out. Instant summer.' },
-  { id: 'starter', name: 'Seed Starter Pot Kit', latin: '12 pots + premium soil', cat: 'Supplies', price: 450, img: 'pots', light: 'medium', pet: true, care: 'easy', water: 'Mist daily', desc: 'Everything to begin: twelve pots, seed-starting mix and plant tags.' },
-  { id: 'tools', name: 'Gardener’s Tool Set', latin: 'Trowel, shears, scoop', cat: 'Supplies', price: 2400, img: 'tools', light: 'medium', pet: true, care: 'easy', water: '—', desc: 'A compact, sturdy hand-tool set for potting, pruning and propagating.' }
+  { id: 'chrysanthemum', name: 'Chrysanthemum', latin: 'Chrysanthemum morifolium', cat: 'Flowering', price: 1200, img: 'chrysanthemum', light: 'bright', pet: false, care: 'moderate', water: 'Every 2\u20133 days', desc: 'Fully double, long-lasting blooms in rich colour. A garden and balcony favourite that flowers heavily in the cooler months.' },
+  { id: 'dahlia', name: 'Indian Dahlia', latin: 'Dahlia pinnata', cat: 'Flowering', price: 1000, img: 'dahlia', light: 'bright', pet: false, care: 'moderate', water: 'Every 2\u20133 days', desc: 'Deep, velvety dahlia blooms with a dramatic dark red tone. Loves full sun and rewards you with flowers for weeks.' },
+  { id: 'gerbera', name: 'Gerbera', latin: 'Gerbera jamesonii', cat: 'Flowering', price: 800, img: 'gerbera', light: 'bright', pet: true, care: 'moderate', water: 'Every 2\u20133 days', desc: 'Big, cheerful daisy flowers on tall stems. Brightens a sunny window, balcony or garden bed.' },
+  { id: 'osteospermum', name: 'Osteospermum', latin: 'African daisy', cat: 'Flowering', price: 700, img: 'osteospermum', light: 'bright', pet: false, care: 'easy', water: 'Every 2\u20133 days', desc: 'Daisy-like flowers that open in the sun. Compact, colourful and happy in pots and borders.' },
+  { id: 'ranunculus', name: 'Ranunculus', latin: 'Persian buttercup', cat: 'Flowering', price: 1000, img: 'ranunculus', light: 'bright', pet: false, care: 'moderate', water: 'Keep lightly moist', desc: 'Layered, rose-like petals in vivid colour. A winter-spring beauty that makes a showy pot.' },
+  { id: 'carnation', name: 'Carnation', latin: 'Dianthus caryophyllus', cat: 'Flowering', price: 1200, img: 'carnation', light: 'bright', pet: false, care: 'moderate', water: 'Every 2\u20133 days', desc: 'Ruffled, softly scented flowers loved for gifting and cut-flower arrangements.' },
+  { id: 'dianthus', name: 'Dianthus', latin: 'Sweet William / pinks', cat: 'Flowering', price: 1000, img: 'dianthus', light: 'bright', pet: false, care: 'easy', water: 'Every 2\u20133 days', desc: 'Frilly-edged blooms in pink, red and white with a light clove scent. Tough and long-flowering.' },
+  { id: 'moneyplant', name: 'Money Plant', latin: 'Epipremnum aureum', cat: 'Indoor', price: 1200, img: 'pothos', light: 'medium', pet: false, care: 'easy', water: 'Every 7\u201310 days', desc: 'The classic easy houseplant: glossy heart-shaped leaves that trail or climb. Thrives in water or soil.' },
+  { id: 'areca', name: 'Areca Palm', latin: 'Dypsis lutescens', cat: 'Indoor', price: 1000, img: 'areca', light: 'medium', pet: true, care: 'moderate', water: 'Weekly', desc: 'Feathery, arching fronds that bring a tropical feel indoors. Pet-safe and a natural air freshener.' },
+  { id: 'spider', name: 'Spider Plant', latin: 'Chlorophytum comosum', cat: 'Indoor', price: 300, img: 'spider', light: 'medium', pet: true, care: 'easy', water: 'Weekly', desc: 'Striped, arching leaves and baby plantlets on long stems. Very forgiving and pet-safe.' },
+  { id: 'fittonia', name: 'Fittonia', latin: 'Nerve plant', cat: 'Indoor', price: 4500, img: 'fittonia', light: 'medium', pet: true, care: 'moderate', water: 'Keep lightly moist', desc: 'Colourful, finely veined leaves in a compact mound. A striking pet-safe accent for shelves and terrariums.' },
+  { id: 'jade', name: 'Jade Plant', latin: 'Crassula ovata', cat: 'Succulents', price: 10000, img: 'jade', light: 'bright', pet: false, care: 'easy', water: 'Every 2 weeks', desc: 'A long-lived succulent with thick, glossy leaves and a tree-like shape. Said to bring good fortune.' },
+  { id: 'bougainvillea', name: 'Bougainvillea', latin: 'Paper flower', cat: 'Outdoor', price: 2000, img: 'bougainvillea', light: 'bright', pet: false, care: 'easy', water: 'Twice weekly', desc: 'Waves of papery magenta blooms for walls, gates and terraces. Loves heat and full sun.' },
+  { id: 'adenium', name: 'Adenium Obesum', latin: 'Desert rose', cat: 'Succulents', price: 3000, img: 'adenium', light: 'bright', pet: false, care: 'moderate', water: 'Every 10\u201314 days', desc: 'A sculptural swollen trunk topped with bright trumpet flowers. Needs sun, heat and well-drained soil.' },
+  { id: 'cactus', name: 'Cactus', latin: 'Potted desert cactus', cat: 'Succulents', price: 500, img: 'cactus', light: 'bright', pet: false, care: 'easy', water: 'Monthly', desc: 'A low-maintenance desert beauty in a terracotta pot. Loves full sun and a little neglect.' },
+  { id: 'hibiscus', name: 'Hibiscus', latin: 'Hibiscus rosa-sinensis', cat: 'Outdoor', price: 400, img: 'hibiscus', light: 'bright', pet: false, care: 'easy', water: 'Every 2\u20133 days', desc: 'Large, showy trumpet flowers that bloom through the warm months. Easy to grow in a sunny spot.' }
 ];
 LZ.byId = id => LZ.PRODUCTS.find(p => p.id === id);
