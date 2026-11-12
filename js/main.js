@@ -2,6 +2,9 @@
 (() => {
   'use strict';
   document.documentElement.classList.add('js');
+  /* always start pages from the top (also when coming back) */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (!location.hash) scrollTo(0, 0);
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -126,7 +129,7 @@
     gsap.to('.wipe span', { opacity: 1, duration: .4, delay: .3 });
     setTimeout(() => { location.href = a.href; }, 850);
   });
-  addEventListener('pageshow', e => { if (e.persisted && hasGSAP) { gsap.set(wipe, { yPercent: 100 }); } });
+  addEventListener('pageshow', e => { if (e.persisted) { if (hasGSAP) gsap.set(wipe, { yPercent: 100 }); lenis ? lenis.scrollTo(0, { immediate: true, force: true }) : scrollTo(0, 0); } });
   const arrivedViaWipe = sessionStorage.getItem('lz-trans') === '1';
   sessionStorage.removeItem('lz-trans');
   if (hasGSAP) gsap.set(wipe, { yPercent: arrivedViaWipe && !firstVisit ? 0 : 100 });
