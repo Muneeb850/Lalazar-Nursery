@@ -10,7 +10,8 @@ LZ.BIZ = {
   wa: '923397688799',
   email: 'muhammadtalhabuttsb@gmail.com',
   addr: ['Lower Canal Road, near Lucky Petrol Pump', 'Opposite Sitara Gold City Phase 2, Faisalabad'],
-  maps: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Lalazar Nursery, Lower Canal Road near Lucky Petrol Pump, opposite Sitara Gold City Phase 2, Faisalabad')
+  maps: 'https://maps.app.goo.gl/ZHDaXia6Bn6pn7Bx6?g_st=aw',
+  lat: 31.393111, lng: 73.131543
 };
 LZ.waLink = text => `https://wa.me/${LZ.BIZ.wa}${text ? '?text=' + encodeURIComponent(text) : ''}`;
 
