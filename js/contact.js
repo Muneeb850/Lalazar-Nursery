@@ -1,4 +1,4 @@
-/* Contact form: validation + local save (swap for a real endpoint/EmailJS/Formspree when ready) */
+/* Contact form: validate, save a copy locally, then hand the message to WhatsApp / email (no server needed) */
 (() => {
   const { $, $$ } = LZ;
   const f = $('#cform');
@@ -12,9 +12,13 @@
       i.parentElement.querySelector('.err').textContent = msg; if (msg) ok = false;
     });
     if (!ok) return;
-    const all = LZ.store.get('lz-messages', []);
-    all.push({ ...Object.fromEntries(new FormData(f)), at: new Date().toISOString() }); LZ.store.set('lz-messages', all);
+    const d = Object.fromEntries(new FormData(f));
+    const all = LZ.store.get('lz-messages', []); all.push({ ...d, at: new Date().toISOString() }); LZ.store.set('lz-messages', all);
+    const text = `Assalam o Alaikum! I am ${d.name} (${d.email}).\nInterested in: ${d.topic}\n\n${d.message}`;
+    $('#wa-send').href = LZ.waLink(text);
+    $('#mail-send').href = `mailto:${LZ.BIZ.email}?subject=${encodeURIComponent('Website enquiry: ' + d.topic)}&body=${encodeURIComponent(text)}`;
     f.reset(); const s = $('#ok'); s.classList.add('show');
     if (typeof gsap !== 'undefined') gsap.from(s, { y: 24, opacity: 0, duration: .8, ease: 'expo.out' });
+    s.scrollIntoView({ block: 'center', behavior: 'smooth' });
   });
 })();

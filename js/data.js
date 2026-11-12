@@ -1,6 +1,19 @@
 /* Lalazar Nursery – shared data. Edit products & prices here. */
 window.LZ = window.LZ || {};
 
+/* Business details – edit here and every page updates */
+LZ.BIZ = {
+  name: 'Lalazar Nursery',
+  owner: 'Muhammad Talha Butt',
+  phone: '0339-7688799',
+  tel: '+923397688799',
+  wa: '923397688799',
+  email: 'muhammadtalhabuttsb@gmail.com',
+  addr: ['Lower Canal Road, near Lucky Petrol Pump', 'Opposite Sitara Gold City Phase 2, Faisalabad'],
+  maps: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Lalazar Nursery, Lower Canal Road near Lucky Petrol Pump, opposite Sitara Gold City Phase 2, Faisalabad')
+};
+LZ.waLink = text => `https://wa.me/${LZ.BIZ.wa}${text ? '?text=' + encodeURIComponent(text) : ''}`;
+
 /* Unsplash photo ids (free to use). Served resized + auto-WebP via the CDN, so pages stay light. */
 LZ.IMG = {
   tools: '1416879595882-3373a0480b5b', cactus: '1459411552884-841db9b3cc2a', haworthia: '1485955900006-10f4d324d411',

@@ -6,10 +6,10 @@
 <title>Contact — Lalazar Nursery</title>
 <meta name="description" content="Visit, call or message Lalazar Nursery for plant advice, orders, landscaping and workshops.">
 <meta name="theme-color" content="#06110b">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2306110b'/%3E%3Cpath d='M14 50C14 27 28 13 52 11c-1 23-12 39-34 41M14 50c9-12 18-22 28-31' fill='none' stroke='%23c9f26b' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="images/favicon.png"><link rel="apple-touch-icon" href="images/logo-mark-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=14">
+<link rel="stylesheet" href="css/style.css?v=17">
 </head>
 <body>
 <main>
@@ -29,24 +29,27 @@
           <select id="t" name="topic"><option>Buying plants</option><option>Landscaping</option><option>Delivery</option><option>Maintenance</option><option>Indoor plantscaping</option><option>Workshops</option><option>Plant care plan</option><option>Something else</option></select></div>
         <div class="f"><label for="m">Message</label><textarea id="m" name="message" required></textarea><span class="err"></span></div>
         <div><button class="btn dark magnetic">Send message <span class="arr">&rarr;</span></button></div>
-        <div class="ok" id="ok" role="status"><h3 class="h3">Thank you! <em>We&rsquo;ll be in touch soon.</em></h3></div>
+        <div class="sendbox" id="ok" role="status"><h3 class="h3">Message saved. <em>One last tap to send it.</em></h3>
+          <p style="opacity:.75;margin-top:8px">Choose how you&rsquo;d like to reach us &mdash; your message is already written for you.</p>
+          <div class="cbtns"><a class="btn wa" id="wa-send" target="_blank" rel="noopener">Send on WhatsApp <span class="arr">&rarr;</span></a><a class="btn ghost" id="mail-send">Send by email</a></div></div>
       </form>
       <div class="info">
-        <div data-reveal><h4>Visit</h4><p>Lalazar Nursery<br>Main Boulevard, Lahore</p></div>
-        <div data-reveal><h4>Hours</h4><p>Daily, 8am &ndash; 7pm</p></div>
-        <div data-reveal><h4>Call / WhatsApp</h4><a href="tel:+920000000000">+92 000 0000000</a></div>
-        <div data-reveal><h4>Email</h4><a href="mailto:hello@lalazarnursery.com">hello@lalazarnursery.com</a></div>
+        <div data-reveal><h4>Visit us</h4><p>Lalazar Nursery<br>Lower Canal Road, near Lucky Petrol Pump<br>Opposite Sitara Gold City Phase&nbsp;2<br>Faisalabad</p></div>
+        <div data-reveal><h4>Call / WhatsApp</h4><a href="tel:+923397688799">0339-7688799</a></div>
+        <div data-reveal><h4>Email</h4><a href="mailto:muhammadtalhabuttsb@gmail.com" style="word-break:break-all">muhammadtalhabuttsb@gmail.com</a></div>
+        <div data-reveal><h4>Owner</h4><p>Muhammad Talha Butt</p></div>
+        <div class="cbtns" data-reveal><a class="btn wa" href="https://wa.me/923397688799?text=Assalam%20o%20Alaikum%2C%20I%20would%20like%20to%20ask%20about%20your%20plants." target="_blank" rel="noopener">WhatsApp us</a><a class="btn dark" href="tel:+923397688799">Call now</a><a class="btn ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Lalazar+Nursery%2C+Lower+Canal+Road+near+Lucky+Petrol+Pump%2C+opposite+Sitara+Gold+City+Phase+2%2C+Faisalabad" target="_blank" rel="noopener">Get directions &#8599;</a></div>
       </div>
     </div>
     <div class="wrap" style="margin-top:clamp(50px,7vw,100px)"><div class="map" data-reveal>
-      <iframe title="Map of Lahore" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.openstreetmap.org/export/embed.html?bbox=74.25%2C31.45%2C74.45%2C31.60&amp;layer=mapnik"></iframe></div></div>
+      <iframe title="Map: Lalazar Nursery, Lower Canal Road, Faisalabad" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Sitara+Gold+City+Phase+2+Lower+Canal+Road+Faisalabad&amp;output=embed"></iframe></div></div>
   </section>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="js/data.js?v=14"></script>
-<script src="js/main.js?v=14"></script>
-<script src="js/contact.js?v=14"></script>
+<script src="js/data.js?v=17"></script>
+<script src="js/main.js?v=17"></script>
+<script src="js/contact.js?v=17"></script>
 </body>
 </html>

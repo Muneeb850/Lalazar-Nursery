@@ -26,15 +26,16 @@
   const firstVisit = !sessionStorage.getItem('lz-seen');
   document.body.insertAdjacentHTML('afterbegin', `
   ${firstVisit ? `<div class="pre" aria-hidden="true"><div class="pre-in">
-    <svg viewBox="0 0 64 64">${`<path d="${leafPath}" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>`}</svg>
+    <img class="pre-logo" src="images/logo-mark-192.png" width="120" height="120" alt="">
     <div class="pre-name"><span>Lalazar Nursery</span></div>
     <div class="pre-bar"><i></i></div><div class="pre-n"><span>Growing</span><span class="pre-c">000</span></div></div></div>` : ''}
   <div class="wipe" aria-hidden="true"><span>Lalazar</span></div>
-  <header class="hdr"><a class="logo" href="index.html" aria-label="Lalazar Nursery home">${leafSvg()}Lalazar<small>Nursery</small></a>
+  <header class="hdr"><a class="logo" href="index.html" aria-label="Lalazar Nursery home"><i class="logo-gap"></i>Lalazar<small>Nursery</small></a>
     <nav class="nav" aria-label="Primary">${pages.map(p => `<a href="${p[0]}" class="${p[0] === here ? 'on' : ''}">${p[1]}</a>`).join('')}</nav>
     <div class="hdr-r"><button class="cart-btn" aria-label="Open cart">Cart <b class="cart-n">0</b></button><button class="burger" aria-label="Menu">Menu</button></div></header>
+  <a class="logo-mark" href="index.html" aria-label="Lalazar Nursery home"><img src="images/logo-mark-192.png" width="48" height="48" alt="Lalazar Nursery logo"></a>
   <div class="mnav" aria-hidden="true"><nav>${pages.map(p => `<a href="${p[0]}">${p[1]}</a>`).join('')}</nav>
-    <p class="muted">hello@lalazarnursery.com</p></div>
+    <div class="muted"><a href="tel:${LZ.BIZ.tel}">${LZ.BIZ.phone}</a><br><a href="mailto:${LZ.BIZ.email}">${LZ.BIZ.email}</a></div></div>
   <div class="drawer-bg"></div>
   <aside class="drawer" aria-label="Shopping cart"><div class="drawer-h"><h3 class="h3">Your <em>cart</em></h3><button class="close-cart" aria-label="Close cart">Close ✕</button></div>
     <div class="drawer-b"></div><div class="drawer-f"><div class="tot"><span>Total</span><b class="cart-total">Rs 0</b></div><button class="btn checkout">Checkout <span class="arr">→</span></button></div></aside>
@@ -43,9 +44,9 @@
 
   document.body.insertAdjacentHTML('beforeend', `
   <footer class="ftr"><div class="ftr-grid">
-    <div><a class="logo" href="index.html">${leafSvg()}Lalazar<small>Nursery</small></a><p class="muted" style="margin-top:18px;max-width:34ch">Healthy plants, honest advice and a little everyday green. Grown with care, delivered with love.</p></div>
+    <div><a href="index.html" aria-label="Lalazar Nursery home"><img class="ftr-logo" src="images/logo.webp" width="150" height="150" alt="Lalazar Nursery — nursery, cut flowers and landscaping services" loading="lazy"></a><p class="muted" style="margin-top:18px;max-width:34ch">Nursery, cut flowers &amp; landscaping services. Healthy plants, honest advice and a little everyday green.</p></div>
     <div><h4>Explore</h4><ul>${pages.map(p => `<li><a href="${p[0]}">${p[1]}</a></li>`).join('')}</ul></div>
-    <div><h4>Visit</h4><ul class="muted"><li>Lalazar Nursery</li><li>Main Boulevard, Lahore</li><li>Open daily 8am – 7pm</li><li><a href="contact.html">Get directions</a></li></ul></div>
+    <div><h4>Visit &amp; contact</h4><ul class="muted"><li>${LZ.BIZ.addr[0]}</li><li>${LZ.BIZ.addr[1]}</li><li><a href="tel:${LZ.BIZ.tel}">${LZ.BIZ.phone}</a> · <a href="${LZ.waLink('Assalam o Alaikum, I would like to ask about your plants.')}" target="_blank" rel="noopener">WhatsApp</a></li><li><a href="mailto:${LZ.BIZ.email}">${LZ.BIZ.email}</a></li><li><a href="${LZ.BIZ.maps}" target="_blank" rel="noopener">Get directions ↗</a></li></ul></div>
     <div><h4>Garden notes</h4><p class="muted">Seasonal tips and new arrivals, once a month.</p>
       <form class="news"><input type="email" placeholder="Your email" aria-label="Email" required><button aria-label="Subscribe">Join →</button></form><p class="news-msg"></p></div>
   </div><div class="mega" aria-hidden="true">Lalazar</div>
@@ -302,9 +303,14 @@
       if (!ok) return;
       const no = 'LZ-' + Date.now().toString().slice(-6);
       const orders = store.get('lz-orders', []);
+      const lines = Object.entries(cart).filter(([id]) => LZ.byId(id)).map(([id, q]) => `• ${LZ.byId(id).name} × ${q} — ${LZ.fmt(LZ.byId(id).price * q)}`);
+      const msg = `Assalam o Alaikum! New order ${no} from the Lalazar Nursery website.\n\n${lines.join('\n')}\n\nTotal: ${LZ.fmt(cartTotal())} (pay on delivery)\n\nName: ${f.name.value}\nPhone: ${f.phone.value}\nAddress: ${f.addr.value}`;
       orders.push({ no, items: cart, total: cartTotal(), name: f.name.value, phone: f.phone.value, addr: f.addr.value, at: new Date().toISOString() });
       store.set('lz-orders', orders); cart = {}; saveCart();
-      $('.modal-box', modals.co).innerHTML = `<button class="modal-x" aria-label="Close">✕</button><span class="eyebrow">Order received</span><h2 class="h2" style="font-size:2.6rem;margin:14px 0">Thank you, <em>${f.name.value.split(' ')[0]}</em>.</h2><p style="opacity:.7">Your order <b>${no}</b> is confirmed. We’ll call you to arrange delivery.</p>`;
+      $('.modal-box', modals.co).innerHTML = `<button class="modal-x" aria-label="Close">✕</button><span class="eyebrow">Almost done</span><h2 class="h2" style="font-size:2.4rem;margin:14px 0">Thank you, <em>${f.name.value.split(' ')[0]}</em>.</h2>
+        <p style="opacity:.7;margin-bottom:22px">Your order <b>${no}</b> is saved. Tap below to send it to ${LZ.BIZ.name} on WhatsApp so we can confirm delivery with you.</p>
+        <a class="btn dark" style="justify-content:center;width:100%" href="${LZ.waLink(msg)}" target="_blank" rel="noopener">Send order on WhatsApp <span class="arr">→</span></a>
+        <p style="opacity:.55;font-size:.85rem;margin-top:14px;text-align:center">or call <a href="tel:${LZ.BIZ.tel}" style="text-decoration:underline">${LZ.BIZ.phone}</a></p>`;
     });
   });
 
@@ -406,7 +412,7 @@
       const c = $('.pre-c'), o = { v: 0 };
       const tl = gsap.timeline();
       tl.from('.pre-name span', { yPercent: 110, duration: 1, ease: 'expo.out' })
-        .to('.pre svg path', { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut' }, 0)
+        .from('.pre-logo', { scale: .6, opacity: 0, rotation: -12, duration: 1.4, ease: 'expo.out' }, 0)
         .to('.pre-bar i', { scaleX: 1, duration: 1.8, ease: 'power2.inOut' }, 0)
         .to(o, { v: 100, duration: 1.8, ease: 'power2.inOut', onUpdate: () => c.textContent = String(Math.round(o.v)).padStart(3, '0') }, 0)
         .to('.pre-in', { opacity: 0, y: -30, duration: .5, ease: 'power2.in' }, '+=.15')
