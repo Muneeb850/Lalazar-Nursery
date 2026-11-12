@@ -54,15 +54,21 @@
   <div class="modal" id="co" role="dialog" aria-modal="true" aria-label="Checkout"></div>`);
 
   /* ---------- back button (inner pages) ---------- */
+  // Keep our own trail of visited pages so "Back" always returns to the previous page.
+  const cur = location.pathname.split('/').pop() + location.search || 'index.html';
+  let trail = []; try { trail = JSON.parse(sessionStorage.getItem('lz-trail')) || []; } catch (e) {}
+  if (!Array.isArray(trail)) trail = [];
+  const at = trail.lastIndexOf(cur);
+  trail = at >= 0 ? trail.slice(0, at + 1) : [...trail, cur];
+  try { sessionStorage.setItem('lz-trail', JSON.stringify(trail)); } catch (e) {}
   const phero = $('.phero');
   if (phero) {
     const b = document.createElement('button');
     b.className = 'back-btn'; b.type = 'button'; b.setAttribute('aria-label', 'Go back');
     b.innerHTML = '<span aria-hidden="true">←</span> Back';
     b.addEventListener('click', () => {
-      let sameSite = false;
-      try { sameSite = document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
-      if (sameSite && history.length > 1) history.back(); else location.href = 'index.html';
+      const prev = trail.length > 1 ? trail[trail.length - 2] : 'index.html';
+      const a = document.createElement('a'); a.href = prev; a.hidden = true; document.body.append(a); a.click();
     });
     phero.prepend(b);
   }
