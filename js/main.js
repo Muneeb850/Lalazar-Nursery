@@ -50,6 +50,20 @@
   <div class="modal" id="qv" role="dialog" aria-modal="true" aria-label="Plant details"></div>
   <div class="modal" id="co" role="dialog" aria-modal="true" aria-label="Checkout"></div>`);
 
+  /* ---------- back button (inner pages) ---------- */
+  const phero = $('.phero');
+  if (phero) {
+    const b = document.createElement('button');
+    b.className = 'back-btn'; b.type = 'button'; b.setAttribute('aria-label', 'Go back');
+    b.innerHTML = '<span aria-hidden="true">←</span> Back';
+    b.addEventListener('click', () => {
+      let sameSite = false;
+      try { sameSite = document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
+      if (sameSite && history.length > 1) history.back(); else location.href = 'index.html';
+    });
+    phero.prepend(b);
+  }
+
   /* ---------- lazy image hydration ---------- */
   $$('img[data-img]').forEach(img => {
     const k = img.dataset.img;

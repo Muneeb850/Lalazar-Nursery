@@ -400,3 +400,10 @@ html{-webkit-tap-highlight-color:transparent}
   .hs-track{padding-bottom:0;align-items:flex-start}
   .hs-track .card{width:clamp(250px,min(28vw,calc((100vh - 360px) * .8)),460px)}
 }
+
+/* back button */
+.back-btn{display:inline-flex;align-items:center;gap:.6em;margin-bottom:34px;padding:.6em 1.2em .6em 1em;border-radius:99px;font-size:.9rem;color:var(--cream);box-shadow:inset 0 0 0 1px var(--line);transition:background .3s,color .3s,transform .5s var(--ease)}
+.back-btn:hover{background:var(--lime);color:var(--ink);transform:translateX(-4px)}
+.back-btn span{transition:transform .4s var(--ease)}
+.back-btn:hover span{transform:translateX(-3px)}
+@media(max-width:800px){.back-btn{margin-bottom:24px;min-height:44px}}
