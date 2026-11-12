@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact — Lalazar Nursery</title>
+<meta name="description" content="Visit, call or message Lalazar Nursery for plant advice, orders, landscaping and workshops.">
+<meta name="theme-color" content="#06110b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2306110b'/%3E%3Cpath d='M14 50C14 27 28 13 52 11c-1 23-12 39-34 41M14 50c9-12 18-22 28-31' fill='none' stroke='%23c9f26b' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main>
+  <section class="phero">
+    <span class="eyebrow" style="color:var(--lime)">Get in touch</span>
+    <h1 class="display" style="margin-top:22px" data-split data-hero>Let&rsquo;s talk <em>plants.</em></h1>
+  </section>
+
+  <section class="light sec">
+    <div class="wrap split" style="align-items:start">
+      <form class="form" id="cform" novalidate>
+        <div class="row2">
+          <div class="f"><label for="n">Name</label><input id="n" name="name" autocomplete="name" required><span class="err"></span></div>
+          <div class="f"><label for="e">Email</label><input id="e" name="email" type="email" autocomplete="email" required><span class="err"></span></div>
+        </div>
+        <div class="f"><label for="t">I&rsquo;m interested in</label>
+          <select id="t" name="topic"><option>Buying plants</option><option>Landscaping</option><option>Delivery</option><option>Maintenance</option><option>Indoor plantscaping</option><option>Workshops</option><option>Plant care plan</option><option>Something else</option></select></div>
+        <div class="f"><label for="m">Message</label><textarea id="m" name="message" required></textarea><span class="err"></span></div>
+        <div><button class="btn dark magnetic">Send message <span class="arr">&rarr;</span></button></div>
+        <div class="ok" id="ok" role="status"><h3 class="h3">Thank you! <em>We&rsquo;ll be in touch soon.</em></h3></div>
+      </form>
+      <div class="info">
+        <div data-reveal><h4>Visit</h4><p>Lalazar Nursery<br>Main Boulevard, Lahore</p></div>
+        <div data-reveal><h4>Hours</h4><p>Daily, 8am &ndash; 7pm</p></div>
+        <div data-reveal><h4>Call / WhatsApp</h4><a href="tel:+920000000000">+92 000 0000000</a></div>
+        <div data-reveal><h4>Email</h4><a href="mailto:hello@lalazarnursery.com">hello@lalazarnursery.com</a></div>
+      </div>
+    </div>
+    <div class="wrap" style="margin-top:clamp(50px,7vw,100px)"><div class="map" data-reveal>
+      <iframe title="Map of Lahore" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.openstreetmap.org/export/embed.html?bbox=74.25%2C31.45%2C74.45%2C31.60&amp;layer=mapnik"></iframe></div></div>
+  </section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/contact.js"></script>
+</body>
+</html>
