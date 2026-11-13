@@ -196,6 +196,7 @@
     toast.style.transform = 'translate(-50%,0)';
     clearTimeout(toastT); toastT = setTimeout(() => { toast.style.transform = 'translate(-50%,200%)'; }, 2200);
   };
+  LZ.say = say;
   const saveCart = () => { store.set('lz-cart', cart); renderCart(); };
   const renderCart = () => {
     $$('.cart-n').forEach(n => n.textContent = cartCount());

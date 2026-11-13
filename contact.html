@@ -4,52 +4,107 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Contact — Lalazar Nursery</title>
-<meta name="description" content="Visit, call or message Lalazar Nursery for plant advice, orders, landscaping and workshops.">
+<meta name="description" content="Visit, call or message Lalazar Nursery on Lower Canal Road, Faisalabad for plant advice, orders, landscaping and workshops.">
 <meta name="theme-color" content="#06110b">
 <link rel="icon" type="image/png" href="images/favicon.png"><link rel="apple-touch-icon" href="images/logo-mark-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=23">
+<link rel="stylesheet" href="css/style.css?v=25">
 </head>
 <body>
 <main>
-  <section class="phero">
+  <!-- HERO with soft floating colour blobs -->
+  <section class="phero chero">
+    <span class="blob b1" aria-hidden="true"></span><span class="blob b2" aria-hidden="true"></span><span class="blob b3" aria-hidden="true"></span>
     <span class="eyebrow" style="color:var(--lime)">Get in touch</span>
-    <h1 class="display" style="margin-top:22px" data-split data-hero>Let&rsquo;s talk <em>plants.</em></h1>
+    <h1 class="display" style="margin-top:22px" data-split data-hero>Let&rsquo;s grow something <em>beautiful.</em></h1>
+    <p class="lead hero-in">Questions about a plant, a delivery or a garden design? Message us, call us, or just drop by the nursery.</p>
   </section>
 
-  <section class="light sec">
-    <div class="wrap split" style="align-items:start">
-      <form class="form" id="cform" novalidate>
-        <div class="row2">
-          <div class="f"><label for="n">Name</label><input id="n" name="name" autocomplete="name" required><span class="err"></span></div>
-          <div class="f"><label for="e">Email</label><input id="e" name="email" type="email" autocomplete="email" required><span class="err"></span></div>
-        </div>
-        <div class="f"><label for="t">I&rsquo;m interested in</label>
-          <select id="t" name="topic"><option>Buying plants</option><option>Landscaping</option><option>Delivery</option><option>Maintenance</option><option>Indoor plantscaping</option><option>Workshops</option><option>Plant care plan</option><option>Something else</option></select></div>
-        <div class="f"><label for="m">Message</label><textarea id="m" name="message" required></textarea><span class="err"></span></div>
-        <div><button class="btn dark magnetic">Send message <span class="arr">&rarr;</span></button></div>
-        <div class="sendbox" id="ok" role="status"><h3 class="h3">Message saved. <em>One last tap to send it.</em></h3>
-          <p style="opacity:.75;margin-top:8px">Choose how you&rsquo;d like to reach us &mdash; your message is already written for you.</p>
-          <div class="cbtns"><a class="btn wa" id="wa-send" target="_blank" rel="noopener">Send on WhatsApp <span class="arr">&rarr;</span></a><a class="btn ghost" id="mail-send">Send by email</a></div></div>
-      </form>
-      <div class="info">
-        <div data-reveal><h4>Visit us</h4><p>Lalazar Nursery<br>Lower Canal Road, near Lucky Petrol Pump<br>Opposite Sitara Gold City Phase&nbsp;2<br>Faisalabad</p></div>
-        <div data-reveal><h4>Call / WhatsApp</h4><a href="tel:+923397688799">0339-7688799</a></div>
-        <div data-reveal><h4>Email</h4><a href="mailto:muhammadtalhabuttsb@gmail.com" style="word-break:break-all">muhammadtalhabuttsb@gmail.com</a></div>
-        <div data-reveal><h4>Owner</h4><p>Muhammad Talha Butt</p></div>
-        <div class="cbtns" data-reveal><a class="btn wa" href="https://wa.me/923397688799?text=Assalam%20o%20Alaikum%2C%20I%20would%20like%20to%20ask%20about%20your%20plants." target="_blank" rel="noopener">WhatsApp us</a><a class="btn dark" href="tel:+923397688799">Call now</a><a class="btn ghost" href="https://maps.app.goo.gl/ZHDaXia6Bn6pn7Bx6?g_st=aw" target="_blank" rel="noopener">Get directions &#8599;</a></div>
+  <section class="light csec">
+    <div class="wrap">
+
+      <!-- QUICK ACTION CARDS -->
+      <div class="qcards">
+        <article class="qcard tilt" data-reveal>
+          <span class="qicon wa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.9 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z"/><path d="M9 9.2c.2 2.3 2.5 4.6 5 5.4l1.2-1.3-1.8-1-.8.6a3.6 3.6 0 0 1-1.6-1.6l.6-.8-1-1.8L9 9.2Z"/></svg></span>
+          <h3>WhatsApp</h3><p class="qval">0339-7688799</p><p class="qnote">The quickest way to ask about a plant or send a photo.</p>
+          <div class="qact"><a class="btn wa" href="https://wa.me/923397688799?text=Assalam%20o%20Alaikum%2C%20I%20would%20like%20to%20ask%20about%20your%20plants." target="_blank" rel="noopener">Chat now <span class="arr">&rarr;</span></a><button class="copy" type="button" data-copy="0339-7688799" data-what="Number">Copy</button></div>
+        </article>
+        <article class="qcard tilt" data-reveal data-delay=".1">
+          <span class="qicon call"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg></span>
+          <h3>Call us</h3><p class="qval">0339-7688799</p><p class="qnote">Talk to us directly about orders, delivery or landscaping.</p>
+          <div class="qact"><a class="btn dark" href="tel:+923397688799">Call now <span class="arr">&rarr;</span></a></div>
+        </article>
+        <article class="qcard tilt" data-reveal data-delay=".2">
+          <span class="qicon mail"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7.5 8 6 8-6"/></svg></span>
+          <h3>Email</h3><p class="qval qmail">muhammadtalhabuttsb@gmail.com</p><p class="qnote">For longer questions, quotes and project details.</p>
+          <div class="qact"><a class="btn ghost" href="mailto:muhammadtalhabuttsb@gmail.com">Write email <span class="arr">&rarr;</span></a><button class="copy" type="button" data-copy="muhammadtalhabuttsb@gmail.com" data-what="Email">Copy</button></div>
+        </article>
+      </div>
+
+      <!-- FORM + VISIT CARD -->
+      <div class="cgrid">
+        <form class="cform" id="cform" novalidate data-reveal>
+          <h2 class="h3">Send us a <em>message</em></h2>
+          <p class="cform-sub">Fill this in and we&rsquo;ll prepare your message &mdash; then send it on WhatsApp or email with one tap.</p>
+
+          <div class="row2">
+            <div class="ff"><input id="n" name="name" placeholder=" " autocomplete="name" required><label for="n">Your name</label><span class="err"></span></div>
+            <div class="ff"><input id="e" name="email" type="email" placeholder=" " autocomplete="email" required><label for="e">Email address</label><span class="err"></span></div>
+          </div>
+
+          <fieldset class="topics">
+            <legend>I&rsquo;m interested in</legend>
+            <label><input type="radio" name="topic" value="Buying plants" checked><span>Buying plants</span></label>
+            <label><input type="radio" name="topic" value="Cut flowers"><span>Cut flowers</span></label>
+            <label><input type="radio" name="topic" value="Landscaping"><span>Landscaping</span></label>
+            <label><input type="radio" name="topic" value="Delivery"><span>Delivery</span></label>
+            <label><input type="radio" name="topic" value="Maintenance"><span>Maintenance</span></label>
+            <label><input type="radio" name="topic" value="Indoor plantscaping"><span>Indoor plantscaping</span></label>
+            <label><input type="radio" name="topic" value="Workshops"><span>Workshops</span></label>
+            <label><input type="radio" name="topic" value="Something else"><span>Something else</span></label>
+          </fieldset>
+
+          <div class="ff area"><textarea id="m" name="message" placeholder=" " maxlength="600" required></textarea><label for="m">Your message</label><span class="err"></span><small class="cnt" id="cnt">0 / 600</small></div>
+
+          <button class="btn dark magnetic submit">Prepare my message <span class="arr">&rarr;</span></button>
+
+          <div class="sendbox" id="ok" role="status"><h3 class="h3">Message ready. <em>One last tap to send it.</em></h3>
+            <p style="opacity:.78;margin-top:8px">Your message is already written for you &mdash; choose how you&rsquo;d like to send it.</p>
+            <div class="cbtns"><a class="btn wa" id="wa-send" target="_blank" rel="noopener">Send on WhatsApp <span class="arr">&rarr;</span></a><a class="btn ghost" id="mail-send">Send by email</a></div></div>
+        </form>
+
+        <aside class="visit" data-reveal data-delay=".12">
+          <span class="vleaf" aria-hidden="true"></span>
+          <img class="vlogo" src="images/logo-mark-192.png" width="84" height="84" alt="Lalazar Nursery logo" loading="lazy">
+          <span class="eyebrow" style="color:var(--lime)">Visit the nursery</span>
+          <h2 class="h3" style="margin:14px 0 22px">Come and <em>see</em> the plants in person.</h2>
+          <ul class="vlist">
+            <li><span class="vi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5a7 7 0 1 0-14 0C5 14.800 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+              <div><b>Lalazar Nursery</b><br>Lower Canal Road, near Lucky Petrol Pump<br>Opposite Sitara Gold City Phase&nbsp;2, Faisalabad</div></li>
+            <li><span class="vi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></span>
+              <div><b>Owner</b><br>Muhammad Talha Butt</div></li>
+            <li><span class="vi"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+              <div><b>Opening hours</b><br>Call or WhatsApp to confirm before you visit.</div></li>
+          </ul>
+          <a class="btn" href="https://maps.app.goo.gl/ZHDaXia6Bn6pn7Bx6?g_st=aw" target="_blank" rel="noopener">Get directions &#8599;</a>
+        </aside>
+      </div>
+
+      <!-- MAP -->
+      <div class="mapcard" data-reveal>
+        <iframe title="Map: Lalazar Nursery, Lower Canal Road, Faisalabad" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=31.393111,73.131543&amp;z=16&amp;output=embed"></iframe>
+        <div class="maplabel"><span class="pin" aria-hidden="true"></span><div><b>Lalazar Nursery</b><br><small>Lower Canal Road, Faisalabad</small></div><a class="btn dark" href="https://maps.app.goo.gl/ZHDaXia6Bn6pn7Bx6?g_st=aw" target="_blank" rel="noopener">Open in Maps &#8599;</a></div>
       </div>
     </div>
-    <div class="wrap" style="margin-top:clamp(50px,7vw,100px)"><div class="map" data-reveal>
-      <iframe title="Map: Lalazar Nursery, Lower Canal Road, Faisalabad" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=31.393111,73.131543&amp;z=16&amp;output=embed"></iframe></div></div>
   </section>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="js/data.js?v=23"></script>
-<script src="js/main.js?v=23"></script>
-<script src="js/contact.js?v=23"></script>
+<script src="js/data.js?v=25"></script>
+<script src="js/main.js?v=25"></script>
+<script src="js/contact.js?v=25"></script>
 </body>
 </html>
