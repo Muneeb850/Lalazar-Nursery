@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=20">
+<link rel="stylesheet" href="css/style.css?v=22">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"GardenStore","name":"Lalazar Nursery","description":"Nursery, cut flowers and landscaping services in Faisalabad.","telephone":"+92-339-7688799","email":"muhammadtalhabuttsb@gmail.com","founder":{"@type":"Person","name":"Muhammad Talha Butt"},"address":{"@type":"PostalAddress","streetAddress":"Lower Canal Road, near Lucky Petrol Pump, opposite Sitara Gold City Phase 2","addressLocality":"Faisalabad","addressCountry":"PK"}}</script>
 </head>
 <body>
@@ -24,6 +24,7 @@
       <img data-img="calathea" data-w="2000" data-sizes="(max-width:800px) 65vw, 100vw" alt="">
     </div>
     <div class="hero-shade" aria-hidden="true"></div>
+    <canvas id="petals" aria-hidden="true"></canvas>
     <span class="hero-tag hero-in">Faisalabad, Pakistan</span>
     <p class="eyebrow hero-in" style="color:var(--lime);margin-bottom:26px">Nursery, cut flowers &amp; landscaping</p>
     <h1 class="display" data-split data-hero>Where every <em>leaf</em> finds a home.</h1>
@@ -40,19 +41,16 @@
   </section>
 
   <!-- MARQUEE -->
-  <div class="marq" aria-hidden="true"><div class="marq-t">
-    <span>Indoor plants</span><span>Succulents</span><span>Flowering</span><span>Outdoor &amp; bonsai</span><span>Cut flowers</span><span>Garden supplies</span><span>Landscaping</span>
-    <span>Indoor plants</span><span>Succulents</span><span>Flowering</span><span>Outdoor &amp; bonsai</span><span>Cut flowers</span><span>Garden supplies</span><span>Landscaping</span>
-  </div></div>
-
-  <!-- STATEMENT -->
-  <section class="light sec">
-    <div class="wrap statement-wrap">
-      <span class="eyebrow" data-reveal>Our philosophy</span>
-      <p class="statement" data-scrub>We believe a home feels alive with greenery. So we grow strong, healthy plants, match them to your light and lifestyle, and stay with you as they thrive.</p>
-      <div data-reveal><a class="btn dark magnetic" href="about.html">Our story <span class="arr">&rarr;</span></a></div>
-    </div>
-  </section>
+  <div class="marq2" aria-hidden="true">
+    <div class="mrow" data-dir="1"><div class="mrow-t">
+      <span>Indoor plants</span><span>Succulents</span><span>Flowering</span><span>Cut flowers</span><span>Landscaping</span><span>Outdoor</span>
+      <span>Indoor plants</span><span>Succulents</span><span>Flowering</span><span>Cut flowers</span><span>Landscaping</span><span>Outdoor</span>
+    </div></div>
+    <div class="mrow outline" data-dir="-1"><div class="mrow-t">
+      <span>Lalazar Nursery</span><span>Faisalabad</span><span>Grown with care</span><span>Lalazar Nursery</span><span>Faisalabad</span><span>Grown with care</span>
+      <span>Lalazar Nursery</span><span>Faisalabad</span><span>Grown with care</span><span>Lalazar Nursery</span><span>Faisalabad</span><span>Grown with care</span>
+    </div></div>
+  </div>
 
   <!-- FEATURED (horizontal scroll) -->
   <section class="hs">
@@ -65,7 +63,7 @@
   </section>
 
   <!-- CATEGORIES -->
-  <section class="sec light" style="padding-inline:0">
+  <section class="sec light wavy" style="padding-inline:0">
     <div class="wrap" style="margin-bottom:50px"><span class="eyebrow" data-reveal>Shop by type</span>
       <h2 class="h2" style="margin-top:18px" data-split>Find your <em>kind</em> of green</h2></div>
     <div class="cats" data-reveal>
@@ -73,6 +71,22 @@
       <a class="cat" href="plants.html?cat=Succulents" data-cursor="Explore"><img data-img="echeveria" data-w="900" data-sizes="(max-width:800px) 100vw, 40vw" alt="Succulent rosettes"><span class="num">02</span><div><h3>Succulents</h3><p>Sun-lovers that thrive on neglect</p></div></a>
       <a class="cat" href="plants.html?cat=Flowering" data-cursor="Explore"><img data-img="sunflower" data-w="900" data-sizes="(max-width:800px) 100vw, 40vw" alt="Sunflowers"><span class="num">03</span><div><h3>Flowering</h3><p>Blooms for every season</p></div></a>
       <a class="cat" href="plants.html?cat=Outdoor" data-cursor="Explore"><img data-img="garden" data-w="900" data-sizes="(max-width:800px) 100vw, 40vw" alt="Garden path"><span class="num">04</span><div><h3>Outdoor</h3><p>Bonsai, topiary & garden stars</p></div></a>
+    </div>
+  </section>
+
+  <!-- PICK YOUR MOOD -->
+  <section class="mood wavy sec" id="mood" data-tone="blush">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal>Pick your mood</span>
+      <h2 class="h2" style="margin:18px 0 34px" data-split>What&rsquo;s your <em>colour</em> today?</h2>
+      <div class="swatches" role="group" aria-label="Choose a colour mood">
+        <button class="sw on" data-tone="blush" style="--c:#ef8fb0"><i></i>Blush</button>
+        <button class="sw" data-tone="fire" style="--c:#e8553a"><i></i>Fire</button>
+        <button class="sw" data-tone="violet" style="--c:#8e5bc0"><i></i>Violet</button>
+        <button class="sw" data-tone="green" style="--c:#2f6b47"><i></i>Evergreen</button>
+      </div>
+      <p class="mood-count" id="mood-count" aria-live="polite"></p>
+      <div class="mood-grid" id="mood-grid"></div>
     </div>
   </section>
 
@@ -87,15 +101,18 @@
     </div>
   </section>
 
-  <!-- PARALLAX BAND -->
-  <section class="band">
-    <img data-img="jungle" data-w="1600" data-parallax="8" alt="Lush tropical foliage">
-    <div><span class="eyebrow" style="color:var(--lime)">Greenhouse</span>
-      <h2 class="display" style="margin-top:20px;font-size:clamp(2.6rem,8vw,8rem)" data-split>Grown slow. <em>Grown right.</em></h2></div>
+  <!-- IRIS REVEAL: the photo grows from a small circle as you scroll -->
+  <section class="iris" id="iris">
+    <div class="iris-pin">
+      <div class="iris-img"><img data-img="jungle" data-w="2000" data-sizes="(max-width:800px) 70vw, 100vw" alt="Lush tropical foliage in the greenhouse"></div>
+      <div class="iris-txt"><span class="eyebrow" style="color:var(--lime)">Greenhouse</span>
+        <h2 class="display" style="margin-top:20px;font-size:clamp(2.6rem,8vw,8rem)">Grown slow. <em>Grown right.</em></h2></div>
+      <p class="iris-hint">Keep scrolling</p>
+    </div>
   </section>
 
   <!-- WHY + STATS -->
-  <section class="light sec">
+  <section class="light sec wavy">
     <div class="wrap">
       <div class="split" style="margin-bottom:clamp(60px,9vw,120px)">
         <div><span class="eyebrow" data-reveal>Why Lalazar</span><h2 class="h2" style="margin-top:18px" data-split>Plants that <em>last</em>, advice you can trust.</h2></div>
@@ -127,8 +144,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="js/data.js?v=20"></script>
-<script src="js/main.js?v=20"></script>
-<script src="js/home.js?v=20"></script>
+<script src="js/data.js?v=22"></script>
+<script src="js/main.js?v=22"></script>
+<script src="js/home.js?v=22"></script>
+<script src="js/petals.js?v=22"></script>
 </body>
 </html>

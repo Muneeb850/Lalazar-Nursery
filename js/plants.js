@@ -12,6 +12,7 @@
   const card = p => `<article class="card tilt" data-cursor="View" data-open="${p.id}">
     <span class="badge">${p.cat}${p.pet ? ' · Pet-safe' : ''}</span>
     <div class="card-img"><img src="${LZ.U(p.img, 600)}" srcset="${LZ.SRCSET(p.img)}" sizes="(max-width:760px) 50vw, (max-width:1100px) 33vw, 25vw" alt="${p.name}" width="600" height="750" loading="lazy" decoding="async">
+      <div class="card-chips" aria-hidden="true"><span>${p.light} light</span><span>${p.water}</span><span>${p.care}</span></div>
       <button class="add" data-add="${p.id}" aria-label="Add ${p.name} to cart">+</button></div>
     <div class="card-b"><div><h3>${p.name}</h3><p>${p.latin}</p></div><div class="price">${LZ.fmt(p.price)}</div></div></article>`;
 
@@ -25,7 +26,7 @@
     grid.innerHTML = list.length ? list.map(card).join('') : '<p class="empty">No plants match — try another search.</p>';
     LZ.bindFX(grid);
     if (typeof gsap !== 'undefined' && !LZ.reduce && animate) {
-      gsap.from($$('.card', grid), { opacity: 0, y: 50, duration: .9, ease: 'expo.out', stagger: .05, clearProps: 'opacity,transform' });
+      gsap.from($$('.card', grid), { opacity: 0, y: 70, rotationX: -22, scale: .94, transformOrigin: '50% 100%', transformPerspective: 900, duration: 1, ease: 'expo.out', stagger: { each: .05, from: 'start' }, clearProps: 'opacity,transform' });
     }
     if (typeof ScrollTrigger !== 'undefined') { LZ.scrollInit(grid); ScrollTrigger.refresh(); }
   };

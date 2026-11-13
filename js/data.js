@@ -75,3 +75,12 @@ LZ.PRODUCTS = [
   { id: 'hibiscus', name: 'Hibiscus', latin: 'Hibiscus rosa-sinensis', cat: 'Outdoor', price: 400, img: 'hibiscus', light: 'bright', pet: false, care: 'easy', water: 'Every 2\u20133 days', desc: 'Large, showy trumpet flowers that bloom through the warm months. Easy to grow in a sunny spot.' }
 ];
 LZ.byId = id => LZ.PRODUCTS.find(p => p.id === id);
+
+/* Colour moods for the "Pick your mood" section on the home page */
+LZ.TONES = {
+  blush: ['gerbera', 'carnation', 'dianthus', 'chrysanthemum', 'adenium', 'bougainvillea'],
+  fire: ['dahlia', 'ranunculus', 'hibiscus', 'adenium'],
+  violet: ['osteospermum', 'bougainvillea', 'chrysanthemum', 'dianthus'],
+  green: ['moneyplant', 'areca', 'spider', 'fittonia', 'jade', 'cactus']
+};
+LZ.TONE_NAMES = { blush: 'Blush', fire: 'Fire', violet: 'Violet', green: 'Evergreen' };

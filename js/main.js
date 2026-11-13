@@ -39,6 +39,8 @@
   <div class="drawer-bg"></div>
   <aside class="drawer" aria-label="Shopping cart"><div class="drawer-h"><h3 class="h3">Your <em>cart</em></h3><button class="close-cart" aria-label="Close cart">Close ✕</button></div>
     <div class="drawer-b"></div><div class="drawer-f"><div class="tot"><span>Total</span><b class="cart-total">Rs 0</b></div><button class="btn checkout">Checkout <span class="arr">→</span></button></div></aside>
+  <div class="progress" aria-hidden="true"><i></i></div>
+  <button class="totop" aria-label="Back to top"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="tr-bg" cx="24" cy="24" r="21"/><circle class="tr-fg" cx="24" cy="24" r="21" pathLength="1"/></svg><span aria-hidden="true">&uarr;</span></button>
   <div class="toast" role="status"></div>
 `);
 
@@ -110,6 +112,19 @@
     lastY = y;
   }, { passive: true });
 
+  /* ---------- scroll progress bar + back-to-top ring ---------- */
+  const barEl = $('.progress i'), topBtn = $('.totop'), topFg = $('.tr-fg');
+  let progTick = false;
+  const prog = () => {
+    progTick = false;
+    const max = document.documentElement.scrollHeight - innerHeight, p = max > 0 ? Math.min(1, scrollY / max) : 0;
+    barEl.style.transform = 'scaleX(' + p + ')'; topFg.style.strokeDashoffset = 1 - p;
+    topBtn.classList.toggle('on', scrollY > 700);
+  };
+  addEventListener('scroll', () => { if (!progTick) { progTick = true; requestAnimationFrame(prog); } }, { passive: true });
+  addEventListener('resize', prog); prog();
+  topBtn.addEventListener('click', () => { lenis ? lenis.scrollTo(0, { duration: 1.6 }) : scrollTo({ top: 0, behavior: 'smooth' }); });
+
   /* ---------- mobile menu ---------- */
   let menuOpen = false;
   const mnav = $('.mnav'), burger = $('.burger');
@@ -124,6 +139,7 @@
 
   /* ---------- page transitions ---------- */
   const wipe = $('.wipe');
+  const dot = (x, y) => `circle(0px at ${x}px ${y}px)`, full = (x, y) => `circle(150vmax at ${x}px ${y}px)`;
   document.addEventListener('click', e => {
     const a = e.target.closest('a'); if (!a || e.defaultPrevented) return;
     const h = a.getAttribute('href');
@@ -131,17 +147,20 @@
     if (a.pathname === location.pathname && !a.hash) return;
     e.preventDefault();
     if (!hasGSAP || reduce) { location.href = a.href; return; }
-    sessionStorage.setItem('lz-trans', '1');
-    gsap.fromTo(wipe, { yPercent: 100 }, { yPercent: 0, duration: .8, ease: 'expo.inOut' });
-    gsap.to('.wipe span', { opacity: 1, duration: .4, delay: .3 });
-    setTimeout(() => { location.href = a.href; }, 850);
+    // iris transition: a circle of colour grows from the exact spot that was clicked
+    let x = e.clientX, y = e.clientY;
+    if (!x && !y) { const r = a.getBoundingClientRect(); x = r.left + r.width / 2; y = r.top + r.height / 2; }
+    sessionStorage.setItem('lz-trans', Math.round(x) + ',' + Math.round(y));
+    gsap.fromTo(wipe, { clipPath: dot(x, y) }, { clipPath: full(x, y), duration: .85, ease: 'power3.inOut' });
+    gsap.to('.wipe span', { opacity: 1, duration: .4, delay: .35 });
+    setTimeout(() => { location.href = a.href; }, 820);
   });
-  addEventListener('pageshow', e => { if (e.persisted) { if (hasGSAP) gsap.set(wipe, { yPercent: 100 }); lenis ? lenis.scrollTo(0, { immediate: true, force: true }) : scrollTo(0, 0); } });
-  const arrivedViaWipe = sessionStorage.getItem('lz-trans') === '1';
+  addEventListener('pageshow', e => { if (e.persisted) { if (hasGSAP) { gsap.set(wipe, { clipPath: dot(innerWidth / 2, innerHeight / 2) }); gsap.set('.wipe span', { opacity: 0 }); } lenis ? lenis.scrollTo(0, { immediate: true, force: true }) : scrollTo(0, 0); } });
+  const transSaved = sessionStorage.getItem('lz-trans');
+  const arrivedViaWipe = !!transSaved;
+  const [trX, trY] = (transSaved || '').split(',').map(Number);
   sessionStorage.removeItem('lz-trans');
-  if (hasGSAP) gsap.set(wipe, { yPercent: arrivedViaWipe && !firstVisit ? 0 : 100 });
-  // positioned with transform: yPercent 100 = below screen, 0 = covering; exit goes to -100.
-  // (entering wipe tweens 100 -> -100? we tween from current to -100 which passes over screen.)
+  if (hasGSAP) gsap.set(wipe, { clipPath: arrivedViaWipe && !firstVisit ? full(trX || innerWidth / 2, trY || innerHeight / 2) : dot(innerWidth / 2, innerHeight / 2) });
 
   /* ---------- split text ---------- */
   const split = (el, mask) => {
@@ -203,6 +222,16 @@
     ring.style.cssText = `position:fixed;z-index:262;left:${r.left + r.width / 2}px;top:${r.top + r.height / 2}px;width:${r.width}px;height:${r.width}px;margin:${-r.width / 2}px 0 0 ${-r.width / 2}px;border-radius:50%;border:2px solid #c9f26b;pointer-events:none`;
     document.body.append(ring);
     gsap.to(ring, { scale: 3.2, opacity: 0, duration: .8, ease: 'power2.out', onComplete: () => ring.remove() });
+    if (reduce) return;
+    // burst of petals from the cart
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2, cols = ['#c9f26b', '#f4b6c8', '#f3efe4', '#e07a4f'];
+    for (let i = 0; i < 16; i++) {
+      const p = document.createElement('i');
+      p.style.cssText = `position:fixed;z-index:262;left:${cx}px;top:${cy}px;width:9px;height:13px;margin:-6px 0 0 -4px;border-radius:60% 0 60% 40%;background:${cols[i % 4]};pointer-events:none`;
+      document.body.append(p);
+      const ang = Math.random() * 6.283, dist = 50 + Math.random() * 90;
+      gsap.fromTo(p, { scale: .4, opacity: 1, rotation: Math.random() * 180 }, { x: Math.cos(ang) * dist, y: Math.sin(ang) * dist + 34, rotation: '+=320', scale: 1, opacity: 0, duration: 1.1 + Math.random() * .5, ease: 'power2.out', onComplete: () => p.remove() });
+    }
   };
   /* fly a copy of the plant photo into the cart button */
   const flyToCart = (id, src) => {
@@ -420,7 +449,7 @@
         .add(fireReady, '-=.55');
     } else {
       lock(false);
-      if (arrivedViaWipe) { gsap.to(wipe, { yPercent: -100, duration: .9, ease: 'expo.inOut', delay: .05, onComplete: () => gsap.set(wipe, { yPercent: 100 }) }); gsap.to('.wipe span', { opacity: 0, duration: .3 }); setTimeout(fireReady, 350); }
+      if (arrivedViaWipe) { gsap.to(wipe, { clipPath: dot(trX || innerWidth / 2, trY || innerHeight / 2), duration: .95, ease: 'power3.inOut', delay: .05 }); gsap.to('.wipe span', { opacity: 0, duration: .3 }); setTimeout(fireReady, 380); }
       else fireReady();
     }
   } else { $$('.pre').forEach(p => p.remove()); fireReady(); }
